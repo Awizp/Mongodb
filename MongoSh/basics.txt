@@ -1,0 +1,66 @@
+1. To show all of our databases use 👉 show dbs
+
+2. To get the name of our database 👉 db.getName()
+
+3. To show the collections we have in our db 👉 show collections
+
+4. To create a collection and document in our database 👉 db.collectionName.insertOne() // collectionName could be name of your collection
+ex: db.movies.insertOne({"name": "Mission Impossible", released: 2023}) // If we haven't had the collection it'll create one
+
+5. To add a many documents in our collection 👉 db.collectionName.insertMany()
+ex: m1={"name":"Transformers","year":2023} 
+    m2={"name":"Top gun","year":2021}
+    db.movies.insertMany([m1,m2])
+
+6. To find(show) the documents in our collection 👉 db.collectionName.find()
+ex: db.movies.find()
+
+7. If you want to find the specific collection 👉 db.collectionName.find(documentName)
+ex: db.movies.find({"name": "Transformers"}) // It'll give whole document of this name contains
+// If we give a word not in our database it won't show anything at all
+
+8. If we want to find the specific field in our document of the collection then 👉 db.collectionName.find(documentName,{documentName:1})
+ex: db.movies.find({name: "Transformers"},{name:1}) // It'll give that only field
+
+if we want to find all of the fields other than one field 👉 db.collectionName.find(documentName,{documentName:0})
+ex: db.movies.find({name: "Transformers"},{name: 0}) // it'll show other fields except name field in that document
+
+9. If we want to have all of the specific field means 👉 db.collectionName.find({},{documentName: 1})
+ex: db.movies.find({},{name: 1}) //It'll give all of name fields in that collection of movies
+
+--------- READ COLLECTION ------------
+
+10. If we want to want which number of documents in our collection then 👉 db.collectionName.find().count()
+
+11. If we want to get specific number of documents in our collection then 👉 db. collectionName.find().limit(n)
+ex: db.movies.find().limit(2) // It'll give 2 documents only in our collection
+
+12. If we want to sort in ascending order 👉 db.collectionName.find({},{documentName:1}).sort({documentName: 1})
+
+13. If we want to sort in descending order 👉 db.collectionName.find({},{documentName:1}).sort({documentName: -1})
+
+14. if we want to skip the number of documents in our collection 👉 db.collectionName.find().skip(2) // 2 documents will be skipped
+
+15. If we want to get less than value somenthing 👉 db.collectionName.find({documentName: {$lt: n}})
+ex: db.movies.find({ratings: { $lt : 5 }}) //it will give the documents which one less than ratings of 5
+
+If we want greater than value something 👉 db.collectionName.find({documentName: {$gt: n}})
+ex: db.movies.find({ratings: { $gt : 5 }}) //it will give the documents which one greater than ratings of 5
+
+---------- UPDATE  COLLECTION ------------
+16. if we want to update our document in our collection means,
+Ex: db.movies.updateOne({name: "Transformers},{ $set :{ "name": "Vishnu" } })
+
+17. If we want to update many fields like above means, 👉
+Ex: db.movies.updateMany({ratings: 4},{ $set: {"ratings" : 5} }) //it'll change all of the rating which had 4 changed into 5
+
+------- DELETE COLLECTION ------------
+18. if we want to delete our document in our collection means,
+Ex: db.movies.deleteOne({name: "Transformers})
+
+19. If we want to delete many fields like above means, 👉
+Ex: db.movies.deleteMany({ratings: 4}) //it'll delete all of the rating which had 4
+
+20. If we want the table of all of the contents in collection means 👉
+Ex: const result = db.movies.find().toArray()
+    console.table(result) //It will show table of contents in our collection
